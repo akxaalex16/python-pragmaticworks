@@ -10,6 +10,7 @@ current_text = tk.StringVar(window)
 # adding 0 as the value displayed
 current_text.set("0")
 
+
 class Calculator:
     def __init__(self):
         self.last_number = 0
@@ -38,6 +39,10 @@ class Calculator:
                 self.last_number = self.last_number + self.current_number
             case "-":
                 self.last_number = self.last_number - self.current_number
+            case "x":
+                self.last_number = self.last_number * self.current_number
+            case "/":
+                self.last_number = self.last_number / self.current_number
             case _:
                 text_box.set("Error, operation not found")
                 return
@@ -66,14 +71,16 @@ def create_button(text, command=None):
 # def alert():
 #     current_text.set("Hello")
 
+
 # lambda is a shortcut for adding a function, inline function, anonymous function
 # when you pass a function as a variable, then don't add the parentheses
 create_button("CE", command=lambda: calc.clear_all(current_text)).grid(row=0, column=2)
+create_button("/", command=lambda: calc.set_operation("/")).grid(row=0, column=3)
 
 create_button(7, command=lambda: calc.set_number(7, current_text)).grid(row=1, column=0)
 create_button(8, command=lambda: calc.set_number(8, current_text)).grid(row=1, column=1)
 create_button(9, command=lambda: calc.set_number(9, current_text)).grid(row=1, column=2)
-# create_button("X").grid(row=1, column=3)
+create_button("x", command=lambda: calc.set_operation("x")).grid(row=1, column=3)
 
 create_button(4, command=lambda: calc.set_number(4, current_text)).grid(row=2, column=0)
 create_button(5, command=lambda: calc.set_number(5, current_text)).grid(row=2, column=1)
@@ -87,9 +94,8 @@ create_button("+", command=lambda: calc.set_operation("+")).grid(row=3, column=3
 
 # create_button("+/-").grid(row=4, column=0)
 create_button(0, command=lambda: calc.set_number(0, current_text)).grid(row=4, column=1)
-# create_button(".").grid(row=4, column=2)
+# create_button(".", command=lambda: calc.set_operation(".")).grid(row=4, column=2)
 create_button("=", command=lambda: calc.calculate(current_text)).grid(row=4, column=3)
-
 
 
 button_frame.pack()
